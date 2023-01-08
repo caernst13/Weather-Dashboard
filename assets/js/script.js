@@ -6,11 +6,18 @@ var todayImgEl = document.getElementById('todayImage')
 var todayTempEl = document.getElementById('todayTemp')
 var todayWindEl = document.getElementById('todayWind')
 var todayHumEl = document.getElementById('todayHum')
+var flagEl = document.getElementById('flagLeft')
 
 var j = 0
+var searched = [];
+var city; 
+
 var getCord = function (event) {
   event.preventDefault();
-  var city = result.value.trim();
+  city = result.value.trim();
+  if (city === "") {
+    return
+  }
   console.log(city)
   console.log('test')
   cityEl.innerHTML = city
@@ -28,6 +35,33 @@ var getCord = function (event) {
     console.log(lat, lon);
     getWeather(lat, lon);
   });
+  storeCity(city)
+}
+
+var getPastCord = function (event) {
+  event.preventDefault();
+  city = event.target.id;
+  if (city === "") {
+    return
+  }
+  console.log(city)
+  console.log('test')
+  cityEl.innerHTML = city
+  fetch('http://api.openweathermap.org/geo/1.0/direct?q='+city+'&limit=5&appid=64cc75f4102d654d309a66592b2c7894', {
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data)
+  
+    var lat =data[0].lat;
+    var lon = data[0].lon;
+    console.log(data);
+    console.log(lat, lon);
+    getWeather(lat, lon);
+  });
+
 }
 
 var getWeather = function(lat, lon) {
@@ -56,9 +90,31 @@ var getWeather = function(lat, lon) {
       }
     
     });
+}
+
+var storeCity = function (city) {
+  searched.push(city);
+  localStorage.setItem("searched", JSON.stringify(searched));
+  displaySearched()
+}
+
+var displaySearched = function () {
+  flagEl.innerHTML = ""
+  for (var k = 0; k < searched.length; k++) {
+    var pastCity = JSON.parse(localStorage.getItem("searched"))
+
+    var button = document.createElement("button");
+    button.setAttribute("id", pastCity[k]);
+    button.textContent=pastCity[k]
+    
+    flagEl.appendChild(button)
+
+  }
 
 }
 
-  
-
-  searchEl.addEventListener('submit', getCord)
+// var getPastCord  = function (event) {
+// console.log(event.target.id)
+// }
+flagEl.addEventListener("click", getPastCord)
+searchEl.addEventListener('submit', getCord)
