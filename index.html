@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Weather Forcaster</title>
+    <title>Weather Forecaster</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,23 +19,28 @@
   </head>
   <body>
     <header class="p-5 mb-4 text-center header">
-      <h1>Weather Forcaster</h1>
+      <h1>Weather Forecaster</h1>
     </header>
+    <!-- bootstrap for formatting -->
     <div class=="container">
         <div class="row">
             <div class="col">
+              <!-- city search -->
                 <h1 class="text-center"> Search for city</h1>
                 <form id="search" class="text-center">
                     <input id="citySearch" type="text" placeholder="City">
                     <button>Search</button>
                 </form>
+                <!-- place to append search history -->
                 <div id="flagLeft"></div>
             </div>
             <div id="flagRight" class="col-10">
               <div class="container">
+                <!-- todays weather -->
+                <!-- each card follows the same format where there are rows with ids for each search chriteria -->
                 <div class="row">
                   <div class="text-center col">
-                    <p id="city"></p>
+                    <h1 id="city"></h1>
                     <p id="today">-------</p>
                     <div class="image"><img scr="" id="todayImage" alt=""></div>
                     <p id="todayTemp" class="high">-------</p>
