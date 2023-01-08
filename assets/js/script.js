@@ -14,9 +14,10 @@ var getCord = function (event) {
   })
   .then(function (data) {
     console.log(data)
-    var lat =data[1].lat;
-    var lon = data[1].lon;
-    console.log(lat, lon)
+    var lat =data[0].lat;
+    var lon = data[0].lon;
+    console.log(data);
+    console.log(lat, lon);
     getWeather(lat, lon);
   });
 }
@@ -29,7 +30,13 @@ var getWeather = function(lat, lon) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      console.log(data)
+      var temp = (data.list[1].main.temp -288.53).toFixed(1) + ' deg C'
+      var wind = data.list[1].wind.speed + ' mph'
+      var weathericon = 'http://openweathermap.org/img/wn/' + data.list[1].weather[0].icon + '.png'
+      var hum = data.list[1].main.humidity + ' %'
+      var date = Date(data.list[1].dt)
+      console.log(temp, wind, hum, weathericon, date,)
     });
 
 }
