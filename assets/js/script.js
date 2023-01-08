@@ -7,6 +7,7 @@ var todayTempEl = document.getElementById('todayTemp')
 var todayWindEl = document.getElementById('todayWind')
 var todayHumEl = document.getElementById('todayHum')
 
+var j = 0
 var getCord = function (event) {
   event.preventDefault();
   var city = result.value.trim();
@@ -38,11 +39,21 @@ var getWeather = function(lat, lon) {
     })
     .then(function (data) {
       console.log(data)
-      todayTempEl.innerHTML = (data.list[1].main.temp -288.53).toFixed(1) + ' deg C'
-      todayWindEl.innerHTML = data.list[1].wind.speed + ' mph'
-      todayImgEl.src= 'http://openweathermap.org/img/wn/' + data.list[1].weather[0].icon + '.png'
-      todayHumEl.innerHTML = data.list[1].main.humidity + ' %'
-      todayDateEl.innerHTML = Date(data.list[1].dt)
+      todayTempEl.innerHTML = (data.list[0].main.temp -288.53).toFixed(1) + ' deg C'
+      todayWindEl.innerHTML = data.list[0].wind.speed + ' mph'
+      todayImgEl.src= 'http://openweathermap.org/img/wn/' + data.list[0].weather[0].icon + '.png'
+      todayHumEl.innerHTML = data.list[0].main.humidity + ' %'
+      todayDateEl.innerHTML = data.list[0].dt_txt
+      for (let i=1; i<7; i++) {
+        console.log(data.list[j])
+        document.getElementById("Temp"+i).innerHTML = (data.list[j].main.temp -288.53).toFixed(1) + ' deg C'
+        document.getElementById("Wind"+i).innerHTML = data.list[j].wind.speed + ' mph'
+        document.getElementById("image"+i).src= 'http://openweathermap.org/img/wn/' + data.list[j].weather[0].icon + '.png'
+        document.getElementById("Hum"+i).innerHTML = data.list[j].main.humidity + ' %'
+        document.getElementById("day"+i).innerHTML = data.list[j].dt_txt
+        j=j+8
+        
+      }
     
     });
 
