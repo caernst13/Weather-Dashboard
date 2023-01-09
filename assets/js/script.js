@@ -30,7 +30,7 @@ var getCord = function (event) {
   cityEl.innerHTML = city
 
   //getting data from api
-  fetch('http://api.openweathermap.org/geo/1.0/direct?q='+city+'&limit=5&appid=64cc75f4102d654d309a66592b2c7894', {
+  fetch('https://api.openweathermap.org/geo/1.0/direct?q='+city+'&limit=5&appid=64cc75f4102d654d309a66592b2c7894', {
   })
   .then(function (response) {
     return response.json();
@@ -54,7 +54,7 @@ var getPastCord = function (event) {
   }
   
   cityEl.innerHTML = city
-  fetch('http://api.openweathermap.org/geo/1.0/direct?q='+city+'&limit=5&appid=64cc75f4102d654d309a66592b2c7894', {
+  fetch('https://api.openweathermap.org/geo/1.0/direct?q='+city+'&limit=5&appid=64cc75f4102d654d309a66592b2c7894', {
   })
   .then(function (response) {
     return response.json();
